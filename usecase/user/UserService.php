@@ -1,8 +1,8 @@
 <?php
 
 namespace Usecase\User;
-use Infrastructure\Repository\UserRepository;
-use Usecase\User\UseCase;
+// use Usecase\User\UseCase;
+// use Usecase\User\UserRepository;
 
 class UserService implements UseCase {
     protected $userRepo;

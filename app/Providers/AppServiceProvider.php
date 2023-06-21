@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Usecase\User\UseCase as IUserService;
+use Usecase\User\UseCase;
 use Usecase\User\UserService;
 
 class AppServiceProvider extends ServiceProvider
@@ -14,7 +14,8 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         //
-    $this->app->bind(IUserService::class, UserService::class);
+        $this->app->bind(\Usecase\User\UserRepository::class, \Infrastructure\Repository\UserRepository::class);
+        $this->app->bind(UseCase::class, UserService::class);
 
     }
 
