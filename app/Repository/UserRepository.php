@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Models\User;
 use App\Service\User\UserRepository as IUserRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
 
 class UserRepository implements IUserRepository {
@@ -21,7 +22,11 @@ class UserRepository implements IUserRepository {
 
     public function getUserById(int $id)
     {
-        $user = DB::table('users')->where('id', $id)->first();
-        return $user;
+        try {
+            $user = DB::table('users')->where('id', $id)->first();
+            return $user;    
+        } catch (ModelNotFoundException $exc) {
+            return false;
+        }
     }
 }

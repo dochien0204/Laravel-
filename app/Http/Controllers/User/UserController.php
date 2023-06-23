@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Payload\User\CreateUserPayLoad;
 use App\Service\User\UseCase as UserService;
+use App\Util\ExceptionHandler;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -33,10 +33,12 @@ class UserController extends Controller {
     public function getUserById(Request $request)
     {
         $id = (int)($request->query('id'));
-        error_log('ERROR '.gettype($id));
 
         $user = $this->userService->getUserById($id);
-        error_log("Username: ".$user->name);
+        if (!$user) {
+            return ExceptionHandler::HandleException(Response::HTTP_BAD_REQUEST, 'Bad request');
+        }
+
         $data = Common::convertUserToPresenterWithoutId($user);
         $response = [
             'status' => strval(Response::HTTP_OK),
