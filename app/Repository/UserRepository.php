@@ -18,4 +18,10 @@ class UserRepository implements IUserRepository {
         $listUser = DB::table('users')->get();
         return $listUser;   
     }
+
+    public function getUserById(int $id)
+    {
+        $user = DB::table('users')->where('id', $id)->first();
+        return $user;
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Payload\User\CreateUserPayLoad;
 use App\Service\User\UseCase as UserService;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class UserController extends Controller {
@@ -29,7 +30,20 @@ class UserController extends Controller {
         return response()->json($response);
     }
 
-    public function createUser(CreateUserPayLoad $request) {
-        
+    public function getUserById(Request $request)
+    {
+        $id = (int)($request->query('id'));
+        error_log('ERROR '.gettype($id));
+
+        $user = $this->userService->getUserById($id);
+        error_log("Username: ".$user->name);
+        $data = Common::convertUserToPresenterWithoutId($user);
+        $response = [
+            'status' => strval(Response::HTTP_OK),
+            'message' => 'SUCCESS',
+            'results' => $data
+        ];
+
+        return response()->json($response);
     }
 }

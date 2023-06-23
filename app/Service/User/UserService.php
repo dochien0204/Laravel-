@@ -18,4 +18,9 @@ class UserService implements UseCase {
     {
         return $this->userRepository->getAllUser();
     }
+
+    public function getUserById(int $id)
+    {
+        return $this->userRepository->getUserById($id);
+    }
 }
