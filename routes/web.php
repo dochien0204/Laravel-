@@ -20,3 +20,4 @@ Route::get('/', function () {
 
 Route::get('/users', [UserController::class, 'getAllUser']);
 Route::get('users/get', [UserController::class, 'getUserById']);
+Route::post('/users/create', [UserController::class, 'createUser']);

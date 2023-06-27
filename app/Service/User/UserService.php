@@ -28,4 +28,13 @@ class UserService implements UseCase {
 
         return $user;
     }
+
+    public function createUser($data) {
+        $user = $this->userRepository->createUser($data);
+        if (!$user) {
+            return false;
+        } 
+
+        return $user;
+    }
 }
